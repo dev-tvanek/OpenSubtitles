@@ -4,13 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenSubtitles.Enums
+namespace OpenSubtitles
 {
-    public enum SubtitleFormat
+    public interface ISubtitleParser
     {
-        SRT,
-        ASS,
-        VTT,
-        Unknown
+        List<SubtitleBlock> Parse(string filePath);
     }
 }
