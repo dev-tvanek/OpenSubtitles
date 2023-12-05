@@ -8,7 +8,7 @@ namespace OpenSubtitles
 {
     public abstract class SubtitleParserBase : ISubtitleParser
     {
-        public abstract List<SubtitleBlock> Parse(string filePath);
+        public abstract List<SubtitleBlockBase> Parse(string filePath);
 
         protected virtual string ProcessHtmlTags(string input)
         {

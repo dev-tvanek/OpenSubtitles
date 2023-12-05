@@ -7,9 +7,9 @@ namespace OpenSubtitles.Parsers
 {
     public class AssSubtitleParser : SubtitleParserBase
     {
-        public override List<SubtitleBlock> Parse(string filePath)
+        public override List<SubtitleBlockBase> Parse(string filePath)
         {
-            var subtitles = new List<SubtitleBlock>();
+            var subtitles = new List<SubtitleBlockBase>();
             var lines = File.ReadAllLines(filePath);
             bool isEventsSection = false;
 
@@ -36,7 +36,7 @@ namespace OpenSubtitles.Parsers
             return subtitles;
         }
 
-        private SubtitleBlock ParseDialogueLine(string line)
+        private SubtitleBlockBase ParseDialogueLine(string line)
         {
             // ASS Dialogue line format: Dialogue: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
             var parts = line.Split(',');
@@ -50,7 +50,7 @@ namespace OpenSubtitles.Parsers
             var endTime = ParseAssTime(parts[2].Trim());
             var text = string.Join(",", parts.Skip(9)); // Text může obsahovat další čárky
 
-            return new SubtitleBlock
+            return new SubtitleBlockBase
             {
                 StartTime = startTime,
                 EndTime = endTime,

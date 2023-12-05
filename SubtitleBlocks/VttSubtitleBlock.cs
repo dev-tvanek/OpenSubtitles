@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenSubtitles
+namespace OpenSubtitles.SubtitleBlocks
 {
-    public interface ISubtitleParser
+    public class VttSubtitleBlock
     {
-        List<SubtitleBlockBase> Parse(string filePath);
     }
 }

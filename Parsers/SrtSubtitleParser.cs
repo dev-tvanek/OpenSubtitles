@@ -8,11 +8,11 @@ namespace OpenSubtitles.Parsers
 {
     public class SrtSubtitleParser : SubtitleParserBase
     {
-        public override List<SubtitleBlock> Parse(string filePath)
+        public override List<SubtitleBlockBase> Parse(string filePath)
         {
-            var subtitles = new List<SubtitleBlock>();
+            var subtitles = new List<SubtitleBlockBase>();
             var lines = File.ReadAllLines(filePath);
-            SubtitleBlock currentSubtitle = null;
+            SubtitleBlockBase currentSubtitle = null;
             int lineNumber = 0;
 
             foreach (var line in lines)
@@ -22,7 +22,7 @@ namespace OpenSubtitles.Parsers
                 // Kontrola pořadového čísla titulku
                 if (currentSubtitle == null && int.TryParse(line, out int subtitleNumber))
                 {
-                    currentSubtitle = new SubtitleBlock { OrderNumber = subtitleNumber };
+                    currentSubtitle = new SubtitleBlockBase { OrderNumber = subtitleNumber };
                     continue;
                 }
 

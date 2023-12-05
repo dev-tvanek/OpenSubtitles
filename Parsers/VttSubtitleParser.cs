@@ -8,11 +8,11 @@ namespace OpenSubtitles.Parsers
 {
     public class VttSubtitleParser : SubtitleParserBase
     {
-        public override List<SubtitleBlock> Parse(string filePath)
+        public override List<SubtitleBlockBase> Parse(string filePath)
         {
-            var subtitles = new List<SubtitleBlock>();
+            var subtitles = new List<SubtitleBlockBase>();
             var lines = File.ReadAllLines(filePath);
-            SubtitleBlock currentSubtitle = null;
+            SubtitleBlockBase currentSubtitle = null;
 
             foreach (var line in lines)
             {
@@ -20,7 +20,7 @@ namespace OpenSubtitles.Parsers
                 if (line.Contains("-->"))
                 {
                     var times = line.Split(new[] { " --> " }, StringSplitOptions.None);
-                    currentSubtitle = new SubtitleBlock
+                    currentSubtitle = new SubtitleBlockBase
                     {
                         StartTime = ParseVttTime(times[0].Trim()),
                         EndTime = ParseVttTime(times[1].Trim())
