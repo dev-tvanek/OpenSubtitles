@@ -93,8 +93,31 @@ namespace OpenSubtitles.FileReader
 
         private SubtitleBlock ProcessSRTLine(string line, SubtitleBlock currentBlock)
         {
-            // Implementace zpracování řádku pro SRT
-            throw new NotImplementedException();
+            if (currentBlock == null)
+            {
+                currentBlock = new SubtitleBlock();
+            }
+
+            if (int.TryParse(line, out int id))
+            {
+                currentBlock.Id = id;
+            }
+            else if (line.Contains("-->"))
+            {
+                var times = line.Split(new[] { " --> " }, StringSplitOptions.None);
+                currentBlock.StartTime = TimeSpan.Parse(times[0].Replace(',', '.'));
+                currentBlock.EndTime = TimeSpan.Parse(times[1].Replace(',', '.'));
+            }
+            else if (!string.IsNullOrWhiteSpace(line))
+            {
+                currentBlock.Lines.Add(line);
+            }
+            else
+            {
+                return currentBlock; // Vrací kompletní blok a začíná nový
+            }
+
+            return null; // Pokračuje ve stávajícím bloku
         }
 
         private SubtitleBlock ProcessSSALine(string line, SubtitleBlock currentBlock)

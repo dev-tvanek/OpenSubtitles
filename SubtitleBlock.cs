@@ -92,5 +92,38 @@ namespace OpenSubtitles
         {
             Lines = new List<string>();
         }
+
+        // Metoda pro kontrolu správnosti formátu času (čitelnost a vyhledatelnost)
+        public bool IsValidTimeFormat()
+        {
+            // Zde můžete přidat logiku pro kontrolu, zda StartTime a EndTime jsou v platném formátu
+            // Například: StartTime by měl být menší než EndTime, a oba by měli být nenulové
+            return StartTime < EndTime && StartTime.TotalMilliseconds >= 0 && EndTime.TotalMilliseconds >= 0;
+        }
+
+        // Metoda pro kontrolu celistvosti bloku (všechny potřebné informace jsou přítomny)
+        public bool IsComplete()
+        {
+            // Zde můžete přidat logiku pro kontrolu, zda všechny potřebné informace jsou přítomny
+            // Například: kontrola, zda Id, StartTime, EndTime a Lines nejsou prázdné nebo nulové
+            return Id >= 0 && IsValidTimeFormat() && Lines.Any();
+        }
+
+        // Metoda pro kontrolu celkové správnosti bloku
+        public bool IsValid()
+        {
+            // Tato metoda může kombinovat všechny výše uvedené kontroly
+            // Můžete také přidat další kontroly specifické pro formát titulků, jako jsou ASS nebo VTT
+            return IsComplete() && Lines.All(line => IsValidLine(line));
+        }
+
+        // Metoda pro kontrolu jednotlivých řádků titulků
+        private bool IsValidLine(string line)
+        {
+            // Implementace závisí na vašich specifických požadavcích
+            // Můžete například zkontrolovat, zda řádek neobsahuje neplatné znaky nebo je v nesprávném formátu
+            return !string.IsNullOrEmpty(line) && line.Length <= 100; // Příklad: řádky by neměly být prázdné a měly by být omezené délkou
+        }
+
     }
 }
