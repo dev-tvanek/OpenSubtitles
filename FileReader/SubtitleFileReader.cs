@@ -1,28 +1,33 @@
 ﻿using OpenSubtitles.Format;
+using OpenSubtitles.Helper;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using UnicodeCharsetDetector;
 
 namespace OpenSubtitles.FileReader
 {
     public class SubtitleFileReader : ISubtitleFileReader
     {
         private readonly ISubtitleFormatRecognizer formatRecognizer;
+        private readonly IEncodingRecognizer encodingRecognizer;
 
-        public SubtitleFileReader(ISubtitleFormatRecognizer formatRecognizer)
+        public SubtitleFileReader(ISubtitleFormatRecognizer formatRecognizer, IEncodingRecognizer encodingRecognizer)
         {
             this.formatRecognizer = formatRecognizer ?? throw new ArgumentNullException(nameof(formatRecognizer));
+            this.encodingRecognizer = encodingRecognizer ?? throw new ArgumentNullException(nameof(encodingRecognizer));
         }
 
         public IEnumerable<SubtitleBlock> ReadFile(string filePath)
         {
             var format = formatRecognizer.RecognizeFormat(filePath);
+            var encoding = encodingRecognizer.DetectEncoding(filePath);
             var subtitleBlocks = new List<SubtitleBlock>();
 
             try
             {
                 using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
-                using (var reader = new StreamReader(stream))
+                using (var reader = new StreamReader(stream, encoding))
                 {
                     SubtitleBlock block = null;
                     string line;
@@ -31,14 +36,16 @@ namespace OpenSubtitles.FileReader
                         switch (format)
                         {
                             case SubtitleFormat.SRT:
-                                block = ProcessSrtLine(line, block);
+                                block = ProcessSRTLine(line, block);
                                 break;
                             case SubtitleFormat.SSA:
+                                block = ProcessSSALine(line, block);
+                                break;
                             case SubtitleFormat.ASS:
-                                block = ProcessAssLine(line, block);
+                                block = ProcessASSLine(line, block);
                                 break;
                             case SubtitleFormat.VTT:
-                                block = ProcessVttLine(line, block);
+                                block = ProcessVTTLine(line, block);
                                 break;
                             default:
                                 throw new NotSupportedException("Nepodporovaný formát titulků");
@@ -60,19 +67,25 @@ namespace OpenSubtitles.FileReader
             return subtitleBlocks;
         }
 
-        private SubtitleBlock ProcessSrtLine(string line, SubtitleBlock currentBlock)
+        private SubtitleBlock ProcessSRTLine(string line, SubtitleBlock currentBlock)
         {
             // Implementace zpracování řádku pro SRT
             throw new NotImplementedException();
         }
 
-        private SubtitleBlock ProcessAssLine(string line, SubtitleBlock currentBlock)
+        private SubtitleBlock ProcessSSALine(string line, SubtitleBlock currentBlock)
         {
             // Implementace zpracování řádku pro ASS
             throw new NotImplementedException();
         }
 
-        private SubtitleBlock ProcessVttLine(string line, SubtitleBlock currentBlock)
+        private SubtitleBlock ProcessASSLine(string line, SubtitleBlock currentBlock)
+        {
+            // Implementace zpracování řádku pro ASS
+            throw new NotImplementedException();
+        }
+
+        private SubtitleBlock ProcessVTTLine(string line, SubtitleBlock currentBlock)
         {
             // Implementace zpracování řádku pro VTT
             throw new NotImplementedException();

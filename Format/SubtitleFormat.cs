@@ -6,7 +6,8 @@
         SRT,
         SSA,
         ASS,
-        VTT
+        VTT,
         // Další formáty, pokud jsou potřeba
     }
 }
+

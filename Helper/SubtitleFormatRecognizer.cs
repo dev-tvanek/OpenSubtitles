@@ -23,6 +23,8 @@ namespace OpenSubtitles.Helper
                     return SubtitleFormat.SSA;
                 case ".vtt":
                     return SubtitleFormat.VTT;
+
+
                 // Přidat další přípony pro jiné formáty
                 default:
                     return SubtitleFormat.Unknown;
