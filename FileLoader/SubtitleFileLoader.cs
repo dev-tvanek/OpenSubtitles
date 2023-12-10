@@ -33,6 +33,12 @@ namespace OpenSubtitles.FileLoader
 
                 var fileContent = File.ReadAllText(FilePath, System.Text.Encoding.GetEncoding(Encoding));
 
+                // Kontrola syntaxe
+                //if (!IdentifySubtitleSyntax.IsValidSyntax(fileContent, Format))
+                //{
+                //    throw new InvalidDataException("Soubor s titulky má neplatnou syntaxi.");
+                //}
+
                 switch (Format)
                 {
                     case SubtitleFormat.SRT:
@@ -49,16 +55,29 @@ namespace OpenSubtitles.FileLoader
                 // Zde můžete přidat další zpracování výjimek, například logování
             }
         }
+
+
         public void DisplaySubtitles()
         {
+            if (Content == null || Content.Count == 0)
+            {
+                Console.WriteLine("Žádný obsah pro zobrazení. Content je null nebo prázdný.");
+                return;
+            }
+
             foreach (var block in Content)
             {
                 Console.WriteLine($"ID: {block.Id}");
                 Console.WriteLine($"Start: {block.StartTime}");
                 Console.WriteLine($"End: {block.EndTime}");
-                Console.WriteLine($"Text: {block.Lines[0]}");
+                foreach (var line in block.Lines)
+                {
+                    Console.WriteLine($"Text: {line}");
+                }
                 Console.WriteLine(); // Prázdný řádek pro oddělení bloků
             }
         }
+
     }
 }
+
