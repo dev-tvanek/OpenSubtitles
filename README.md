@@ -17,7 +17,5 @@ Rozšiřitelnost: Navrženo s možností snadného rozšíření pro podporu dal
 Použití
 Příklady použití knihovny jsou uvedeny v dokumentaci. Uživatelé mohou snadno načíst titulky, identifikovat jejich formát a kódování, parsovat a zobrazovat jejich obsah.
 
-csharp
-Copy code
 SubtitleFileLoader loader = new SubtitleFileLoader("cesta/k/souboru.srt");
 loader.DisplaySubtitles();
