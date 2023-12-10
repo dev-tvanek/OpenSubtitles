@@ -1,4 +1,10 @@
-﻿namespace OpenSubtitles.Format
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace OpenSubtitles.FileFormat.Enum
 {
     /// <summary>
     /// Výčet (Enum) SubtitleFormat definuje podporované formáty titulků.
@@ -35,5 +41,3 @@
         // Příklad: Přidání dalších formátů, jako je MicroDVD, SubViewer, atd.
     }
 }
-
-
