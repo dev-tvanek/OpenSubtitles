@@ -3,6 +3,7 @@ using System.IO;
 using OpenSubtitles.FileFormat;
 using OpenSubtitles.FileFormat.Enum;
 using OpenSubtitles.FileParser;
+using OpenSubtitles.FileStruct;
 
 namespace OpenSubtitles.FileLoader
 {
@@ -33,7 +34,7 @@ namespace OpenSubtitles.FileLoader
 
                 var fileContent = File.ReadAllText(FilePath, System.Text.Encoding.GetEncoding(Encoding));
 
-                // Kontrola syntaxe
+                //Kontrola syntaxe -- prozatím nefunkční
                 //if (!IdentifySubtitleSyntax.IsValidSyntax(fileContent, Format))
                 //{
                 //    throw new InvalidDataException("Soubor s titulky má neplatnou syntaxi.");
@@ -52,7 +53,7 @@ namespace OpenSubtitles.FileLoader
             catch (Exception ex)
             {
                 Console.WriteLine($"Chyba při načítání souboru: {ex.Message}");
-                // Zde můžete přidat další zpracování výjimek, například logování
+           
             }
         }
 

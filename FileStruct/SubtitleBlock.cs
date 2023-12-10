@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OpenSubtitles
+namespace OpenSubtitles.FileStruct
 {
     /// <summary>
     /// Třída SubtitleBlock reprezentuje jeden blok titulků.

@@ -4,10 +4,25 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PlatformTarget>x64</PlatformTarget>
+    <Authors>https://github.com/dev-tvanek/OpenSubtitles</Authors>
+    <Description>knihovna pro titulky ve formátu SRT</Description>
+    <Company>https://github.com/dev-tvanek/OpenSubtitles</Company>
+    <Copyright>MIT License</Copyright>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>False</Optimize>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="UnicodeCharsetDetector.Standard" Version="1.1.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="FileFormat\Interfaces\" />
+    <Folder Include="FileLoader\Interfaces\" />
+    <Folder Include="FileParser\Interfaces\" />
   </ItemGroup>
 
 </Project>
